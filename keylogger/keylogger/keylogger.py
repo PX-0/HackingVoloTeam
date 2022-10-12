@@ -1,13 +1,13 @@
 from cryptography.fernet import Fernet
 import base64
-import ascoltatoreSeriale as impiccione
+from ascoltatoreSeriale import ascoltatore as impiccione
 
 #  your_code = base64.b64encode(b"""
 #                               """)
 
 # exec(base64.b64decode(your_code))
 
-code = b"""impiccione.ascoltatore()"""
+code = (b"""impiccione()""")
 
 
 key = Fernet.generate_key()
